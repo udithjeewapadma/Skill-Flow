@@ -1,11 +1,15 @@
 package com.example.skill_flow_paf.Controller.DTO.request;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CreateUserRequestDTO {
 
     @NotBlank(message = "Username is required")
@@ -16,7 +20,7 @@ public class CreateUserRequestDTO {
     private String about;
 
     @NotBlank(message = "Phone number is required")
-    @Size(min = 10, max = 15, message = "Phone number must be between 10 and 15 characters")
+    @Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
     private String phoneNumber;
 
     @Size(max = 255, message = "Qualifications section cannot exceed 255 characters")
