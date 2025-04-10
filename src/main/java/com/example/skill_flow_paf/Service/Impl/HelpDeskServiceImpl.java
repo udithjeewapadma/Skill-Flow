@@ -12,6 +12,9 @@ import com.example.skill_flow_paf.Service.HelpDeskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class HelpDeskServiceImpl implements HelpDeskService {
 
@@ -43,6 +46,21 @@ public class HelpDeskServiceImpl implements HelpDeskService {
         helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
 
         return helpDeskResponseDTO;
+    }
+
+    @Override
+    public List<HelpDeskResponseDTO> findAllHelpDesk() {
+        List<HelpDesk> helpDesks = helpDeskRepository.findAll();
+
+        return helpDesks.stream().map(helpDesk -> {
+            HelpDeskResponseDTO helpDeskResponseDTO = new HelpDeskResponseDTO();
+
+            helpDeskResponseDTO.setId(helpDesk.getId());
+            helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
+            helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
+
+            return helpDeskResponseDTO;
+        }).collect(Collectors.toList());
     }
 
 }
