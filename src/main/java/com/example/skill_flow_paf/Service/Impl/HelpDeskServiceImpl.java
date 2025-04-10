@@ -63,4 +63,9 @@ public class HelpDeskServiceImpl implements HelpDeskService {
         }).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteHelpDeskById(Long id) {
+        helpDeskRepository.deleteById(id);
+    }
+
 }
