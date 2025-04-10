@@ -46,4 +46,15 @@ public class ReplyController {
     public void deleteReplyById(@PathVariable("reply-id") Long replyId){
         replyService.deleteReplyById(replyId);
     }
+
+    @PutMapping("/{reply-id}")
+    public ReplyResponseDTO updateReplyById(@PathVariable("reply-id") Long replyId,@RequestBody CreateReplyRequestDTO createReplyRequestDTO){
+
+        Reply reply = replyService.updateReplyById(replyId,createReplyRequestDTO);
+        ReplyResponseDTO replyResponseDTO = new ReplyResponseDTO();
+        replyResponseDTO.setReplyText(reply.getReplyText());
+
+        return replyResponseDTO;
+
+    }
 }

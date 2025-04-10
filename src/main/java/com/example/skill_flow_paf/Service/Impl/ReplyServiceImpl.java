@@ -2,6 +2,7 @@ package com.example.skill_flow_paf.Service.Impl;
 
 import com.example.skill_flow_paf.Controller.DTO.request.CreateReplyRequestDTO;
 import com.example.skill_flow_paf.Controller.DTO.response.ReplyResponseDTO;
+import com.example.skill_flow_paf.Exception.HelpDeskNotFoundException;
 import com.example.skill_flow_paf.Exception.ReplyNotFoundException;
 import com.example.skill_flow_paf.Exception.UserNotFoundExecption;
 import com.example.skill_flow_paf.Models.HelpDesk;
@@ -30,9 +31,12 @@ public class ReplyServiceImpl implements ReplyService {
     private UserRepository userRepository;
 
     @Override
-    public Reply createReply(Long userId, Long helpDeskId, CreateReplyRequestDTO createReplyRequestDTO) {
-        HelpDesk helpDesk = helpDeskRepository.findById(helpDeskId).orElseThrow(()-> new ReplyNotFoundException("Reply not found"));
-        User user = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundExecption("User not found"));
+    public Reply createReply(Long userId, Long helpDeskId, CreateReplyRequestDTO createReplyRequestDTO)
+            throws HelpDeskNotFoundException,UserNotFoundExecption{
+        HelpDesk helpDesk = helpDeskRepository.findById(helpDeskId)
+                .orElseThrow(()-> new HelpDeskNotFoundException("Reply not found"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new UserNotFoundExecption("User not found"));
 
         Reply reply = new Reply();
         reply.setReplyText(createReplyRequestDTO.getReplyText());
@@ -43,7 +47,8 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public ReplyResponseDTO findReplyById(Long id) {
+    public ReplyResponseDTO findReplyById(Long id)
+            throws ReplyNotFoundException{
         Reply reply = replyRepository.findById(id).orElseThrow(()-> new ReplyNotFoundException("Reply not found"));
 
         ReplyResponseDTO replyResponseDTO = new ReplyResponseDTO();
@@ -75,5 +80,15 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public void deleteReplyById(Long id) {
         replyRepository.deleteById(id);
+    }
+
+    @Override
+    public Reply updateReplyById(Long id, CreateReplyRequestDTO createReplyRequestDTO) throws ReplyNotFoundException{
+
+        Reply existingReply = replyRepository
+                .findById(id).orElseThrow(()-> new ReplyNotFoundException("Reply not found"));
+
+        existingReply.setReplyText(createReplyRequestDTO.getReplyText());
+        return replyRepository.save(existingReply);
     }
 }
