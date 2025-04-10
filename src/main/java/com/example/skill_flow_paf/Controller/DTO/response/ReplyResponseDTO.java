@@ -7,4 +7,5 @@ public class ReplyResponseDTO {
     private Long id;
     private String replyText;
     private Long helpDeskId;
+    private Long userId;
 }
