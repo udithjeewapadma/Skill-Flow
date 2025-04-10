@@ -1,6 +1,7 @@
 package com.example.skill_flow_paf.Controller;
 
 import com.example.skill_flow_paf.Controller.DTO.request.CreateReplyRequestDTO;
+import com.example.skill_flow_paf.Controller.DTO.response.HelpDeskResponseDTO;
 import com.example.skill_flow_paf.Controller.DTO.response.ReplyResponseDTO;
 import com.example.skill_flow_paf.Models.Reply;
 import com.example.skill_flow_paf.Models.User;
@@ -27,5 +28,10 @@ public class ReplyController {
         replyResponseDTO.setUserId(reply.getUser().getId());
 
         return replyResponseDTO;
+    }
+
+    @GetMapping("/{reply-id}")
+    public ReplyResponseDTO getReplyById(@PathVariable("reply-id") Long replyId){
+        return replyService.findReplyById(replyId);
     }
 }
