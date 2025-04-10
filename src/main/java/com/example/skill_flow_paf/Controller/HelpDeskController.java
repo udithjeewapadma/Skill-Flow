@@ -27,6 +27,11 @@ public class HelpDeskController {
         return helpDeskResponseDTO;
     }
 
+    @GetMapping("/{help-desk-id}")
+    public HelpDeskResponseDTO getHelpDeskById(@PathVariable("help-desk-id") Long helpDeskId){
+        return helpDeskService.findHelpDeskById(helpDeskId);
+    }
+
 
 
 }

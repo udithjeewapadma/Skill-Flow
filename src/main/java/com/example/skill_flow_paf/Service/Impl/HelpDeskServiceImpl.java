@@ -35,7 +35,7 @@ public class HelpDeskServiceImpl implements HelpDeskService {
     @Override
     public HelpDeskResponseDTO findHelpDeskById(Long id) {
         HelpDesk helpDesk = helpDeskRepository.findById(id).orElseThrow(()-> new HelpDeskNotFoundException("HelpDesk not found"));
-        User user =userRepository.findById(id).orElseThrow(()-> new UserNotFoundExecption("User not found"));
+        //User user =userRepository.findById(id).orElseThrow(()-> new UserNotFoundExecption("User not found"));
 
         HelpDeskResponseDTO helpDeskResponseDTO = new HelpDeskResponseDTO();
         helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
