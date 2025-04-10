@@ -45,4 +45,18 @@ public class CategoryController {
     public void deleteCategoryById(@PathVariable("category-id") Long id) throws CategoryNotFoundException {
         categoryService.deleteCategoryById(id);
     }
+
+    @PutMapping("/{category-id}")
+    public CategoryResponseDTO updateCategoryById(@PathVariable("category-id") Long id,
+                                       @RequestBody CreateCategoryRequestDTO createCategoryRequestDTO){
+        Category category = categoryService.updateCategoryById(id, createCategoryRequestDTO);
+
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+
+        categoryResponseDTO.setId(category.getId());
+        categoryResponseDTO.setCategoryName(category.getCategoryName());
+
+        return categoryResponseDTO;
+    }
+
 }
