@@ -17,4 +17,14 @@ public class AppControllerAdviser {
     public ResponseEntity<String> handleUserNotFound(UserNotFoundExecption ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(HelpDeskNotFoundException.class)
+    public ResponseEntity<String> handleHelpDeskNotFound(HelpDeskNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ReplyNotFoundException.class)
+    public ResponseEntity<String> handleReplyNotFound(ReplyNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }
