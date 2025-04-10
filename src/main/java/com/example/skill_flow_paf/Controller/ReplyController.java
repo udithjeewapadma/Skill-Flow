@@ -21,7 +21,7 @@ public class ReplyController {
     private ReplyService replyService;
 
     @PostMapping
-    public ReplyResponseDTO createReply(@Valid @RequestParam Long userId, @RequestParam Long helpDeskId, @RequestBody CreateReplyRequestDTO createReplyRequestDTO){
+    public ReplyResponseDTO createReply(@RequestParam Long userId, @RequestParam Long helpDeskId, @RequestBody @Valid CreateReplyRequestDTO createReplyRequestDTO){
         Reply reply = replyService.createReply(userId, helpDeskId, createReplyRequestDTO);
 
         ReplyResponseDTO replyResponseDTO = new ReplyResponseDTO();
@@ -49,7 +49,7 @@ public class ReplyController {
     }
 
     @PutMapping("/{reply-id}")
-    public ReplyResponseDTO updateReplyById(@Valid @PathVariable("reply-id") Long replyId,@RequestBody CreateReplyRequestDTO createReplyRequestDTO){
+    public ReplyResponseDTO updateReplyById(@PathVariable ("reply-id") Long replyId,@RequestBody @Valid CreateReplyRequestDTO createReplyRequestDTO){
 
         Reply reply = replyService.updateReplyById(replyId,createReplyRequestDTO);
         ReplyResponseDTO replyResponseDTO = new ReplyResponseDTO();
