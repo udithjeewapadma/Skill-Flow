@@ -38,4 +38,18 @@ public class ReplyServiceImpl implements ReplyService {
 
         return replyRepository.save(reply);
     }
+
+    @Override
+    public ReplyResponseDTO findReplyById(Long id) {
+        Reply reply = replyRepository.findById(id).orElseThrow(()-> new ReplyNotFoundException("Reply not found"));
+
+        ReplyResponseDTO replyResponseDTO = new ReplyResponseDTO();
+        replyResponseDTO.setId(reply.getId());
+        replyResponseDTO.setReplyText(reply.getReplyText());
+        replyResponseDTO.setUserId(reply.getUser().getId());
+        replyResponseDTO.setHelpDeskId(reply.getHelpDesk().getId());
+
+        return replyResponseDTO;
+
+    }
 }
