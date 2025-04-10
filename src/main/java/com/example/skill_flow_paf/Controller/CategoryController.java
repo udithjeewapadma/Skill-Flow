@@ -40,4 +40,9 @@ public class CategoryController {
     public List<CategoryResponseDTO> getAllCategories() {
         return categoryService.findAllCategories();
     }
+
+    @DeleteMapping
+    public void deleteCategoryById(Long id) throws CategoryNotFoundException {
+        categoryService.deleteCategoryById(id);
+    }
 }

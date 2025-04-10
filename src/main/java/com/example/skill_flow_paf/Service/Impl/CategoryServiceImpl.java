@@ -44,5 +44,10 @@ public class CategoryServiceImpl implements CategoryService {
         }).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteCategoryById(Long id) throws CategoryNotFoundException {
+        categoryRepository.deleteById(id);
+    }
+
 
 }
