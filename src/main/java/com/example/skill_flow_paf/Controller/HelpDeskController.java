@@ -7,6 +7,8 @@ import com.example.skill_flow_paf.Service.HelpDeskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/helps")
@@ -30,6 +32,11 @@ public class HelpDeskController {
     @GetMapping("/{help-desk-id}")
     public HelpDeskResponseDTO getHelpDeskById(@PathVariable("help-desk-id") Long helpDeskId){
         return helpDeskService.findHelpDeskById(helpDeskId);
+    }
+
+    @GetMapping
+    public List<HelpDeskResponseDTO> getAllHelpDesk(){
+        return helpDeskService.findAllHelpDesk();
     }
 
 
