@@ -4,5 +4,5 @@ import com.example.skill_flow_paf.Controller.DTO.request.CreateHelpDeskRequestDT
 import com.example.skill_flow_paf.Models.HelpDesk;
 
 public interface HelpDeskService {
-    HelpDesk createHelpDesk(CreateHelpDeskRequestDTO createHelpDeskRequestDTO);
+    HelpDesk createHelpDesk(Long userId,CreateHelpDeskRequestDTO createHelpDeskRequestDTO);
 }
