@@ -10,6 +10,8 @@ import com.example.skill_flow_paf.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/reply")
 public class ReplyController {
@@ -33,5 +35,10 @@ public class ReplyController {
     @GetMapping("/{reply-id}")
     public ReplyResponseDTO getReplyById(@PathVariable("reply-id") Long replyId){
         return replyService.findReplyById(replyId);
+    }
+
+    @GetMapping
+    public List<ReplyResponseDTO> getAllReplies(){
+        return replyService.findAllReplies();
     }
 }

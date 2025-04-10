@@ -14,6 +14,9 @@ import com.example.skill_flow_paf.Service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ReplyServiceImpl implements ReplyService {
 
@@ -51,5 +54,21 @@ public class ReplyServiceImpl implements ReplyService {
 
         return replyResponseDTO;
 
+    }
+
+    @Override
+    public List<ReplyResponseDTO> findAllReplies() {
+        List<Reply> replies = replyRepository.findAll();
+
+        return replies.stream().map(reply -> {
+            ReplyResponseDTO replyResponseDTO = new ReplyResponseDTO();
+
+            replyResponseDTO.setId(reply.getId());
+            replyResponseDTO.setReplyText(reply.getReplyText());
+            replyResponseDTO.setHelpDeskId(reply.getHelpDesk().getId());
+            replyResponseDTO.setUserId(reply.getUser().getId());
+
+            return replyResponseDTO;
+        }).collect(Collectors.toList());
     }
 }
