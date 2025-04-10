@@ -39,6 +39,11 @@ public class HelpDeskController {
         return helpDeskService.findAllHelpDesk();
     }
 
+    @DeleteMapping("/{help-desk-id}")
+    public void deleteHelpDeskById(@PathVariable("help-desk-id") Long  helpDeskId){
+        helpDeskService.deleteHelpDeskById(helpDeskId);
+    }
+
 
 
 }
