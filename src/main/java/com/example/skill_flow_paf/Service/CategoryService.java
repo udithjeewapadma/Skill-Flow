@@ -16,4 +16,6 @@ public interface CategoryService {
      List<CategoryResponseDTO> findAllCategories();
 
      void deleteCategoryById(Long id) throws CategoryNotFoundException;
+
+     Category updateCategoryById(Long id, CreateCategoryRequestDTO createCategoryRequestDTO) throws CategoryNotFoundException;
 }
