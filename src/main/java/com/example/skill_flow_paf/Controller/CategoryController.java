@@ -41,8 +41,8 @@ public class CategoryController {
         return categoryService.findAllCategories();
     }
 
-    @DeleteMapping
-    public void deleteCategoryById(Long id) throws CategoryNotFoundException {
+    @DeleteMapping("/{category-id}")
+    public void deleteCategoryById(@PathVariable("category-id") Long id) throws CategoryNotFoundException {
         categoryService.deleteCategoryById(id);
     }
 }
