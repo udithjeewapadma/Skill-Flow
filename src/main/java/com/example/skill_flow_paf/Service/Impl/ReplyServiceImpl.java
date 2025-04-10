@@ -71,4 +71,9 @@ public class ReplyServiceImpl implements ReplyService {
             return replyResponseDTO;
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteReplyById(Long id) {
+        replyRepository.deleteById(id);
+    }
 }

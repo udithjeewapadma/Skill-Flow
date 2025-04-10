@@ -13,5 +13,7 @@ public interface ReplyService {
 
     List<ReplyResponseDTO> findAllReplies();
 
+    void deleteReplyById(Long id);
+
 
 }

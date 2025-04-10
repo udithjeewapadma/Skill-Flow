@@ -41,4 +41,9 @@ public class ReplyController {
     public List<ReplyResponseDTO> getAllReplies(){
         return replyService.findAllReplies();
     }
+
+    @DeleteMapping("/{reply-id}")
+    public void deleteReplyById(@PathVariable("reply-id") Long replyId){
+        replyService.deleteReplyById(replyId);
+    }
 }
