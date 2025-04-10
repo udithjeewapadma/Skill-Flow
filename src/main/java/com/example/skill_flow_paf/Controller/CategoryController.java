@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
@@ -32,5 +34,10 @@ public class CategoryController {
         categoryResponseDTO.setId(category.getId());
         categoryResponseDTO.setCategoryName(category.getCategoryName());
         return categoryResponseDTO;
+    }
+
+    @GetMapping
+    public List<CategoryResponseDTO> getAllCategories() {
+        return categoryService.findAllCategories();
     }
 }
