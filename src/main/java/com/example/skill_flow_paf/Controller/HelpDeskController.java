@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/helps")
+@CrossOrigin(origins = "http://localhost:5173")
 public class HelpDeskController {
 
     @Autowired
