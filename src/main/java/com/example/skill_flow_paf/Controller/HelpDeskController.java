@@ -4,6 +4,7 @@ import com.example.skill_flow_paf.Controller.DTO.request.CreateHelpDeskRequestDT
 import com.example.skill_flow_paf.Controller.DTO.response.HelpDeskResponseDTO;
 import com.example.skill_flow_paf.Models.HelpDesk;
 import com.example.skill_flow_paf.Service.HelpDeskService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class HelpDeskController {
     private HelpDeskService helpDeskService;
 
     @PostMapping
-    public HelpDeskResponseDTO createHelpDesk(@RequestParam Long userId, @RequestBody CreateHelpDeskRequestDTO createHelpDeskRequestDTO){
+    public HelpDeskResponseDTO createHelpDesk(@Valid @RequestParam Long userId, @RequestBody CreateHelpDeskRequestDTO createHelpDeskRequestDTO){
         HelpDesk helpDesk = helpDeskService.createHelpDesk(userId,createHelpDeskRequestDTO);
 
         HelpDeskResponseDTO helpDeskResponseDTO = new HelpDeskResponseDTO();
@@ -43,6 +44,15 @@ public class HelpDeskController {
     @DeleteMapping("/{help-desk-id}")
     public void deleteHelpDeskById(@PathVariable("help-desk-id") Long  helpDeskId){
         helpDeskService.deleteHelpDeskById(helpDeskId);
+    }
+
+    @PutMapping("/{help-desk-id}")
+    public HelpDeskResponseDTO updateHelpDeskById(@Valid @PathVariable("help-desk-id") Long helpDeskId, @RequestBody CreateHelpDeskRequestDTO createHelpDeskRequestDTO){
+        HelpDesk helpDesk = helpDeskService.updateHelpDeskById(helpDeskId,createHelpDeskRequestDTO);
+        HelpDeskResponseDTO helpDeskResponseDTO= new HelpDeskResponseDTO();
+        helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
+
+        return helpDeskResponseDTO;
     }
 
 

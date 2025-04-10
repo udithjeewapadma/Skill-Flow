@@ -8,9 +8,9 @@ import lombok.Data;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CreateHelpDeskRequestDTO {
+public class CreateReplyRequestDTO {
 
-    @NotBlank(message = "Question must not be empty")
-    @Size(min = 5, max = 1000, message = "Question must be between 5 and 1000 characters")
-    private String question;
+    @NotBlank(message = "Reply text must not be empty")
+    @Size(min = 2, max = 1000, message = "Reply must be between 2 and 1000 characters")
+    private String replyText;
 }

@@ -68,4 +68,13 @@ public class HelpDeskServiceImpl implements HelpDeskService {
         helpDeskRepository.deleteById(id);
     }
 
+    @Override
+    public HelpDesk updateHelpDeskById(Long id, CreateHelpDeskRequestDTO createHelpDeskRequestDTO) {
+
+        HelpDesk existingHelpDesk = helpDeskRepository.findById(id).orElseThrow(()-> new HelpDeskNotFoundException("Help Desk not found"));
+
+        existingHelpDesk.setQuestion(createHelpDeskRequestDTO.getQuestion());
+        return helpDeskRepository.save(existingHelpDesk);
+    }
+
 }
