@@ -30,4 +30,5 @@ public class HelpDeskServiceImpl implements HelpDeskService {
         helpDesk.setUser(user);
         return helpDeskRepository.save(helpDesk);
     }
+
 }
