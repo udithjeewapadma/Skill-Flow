@@ -45,6 +45,15 @@ public class HelpDeskController {
         helpDeskService.deleteHelpDeskById(helpDeskId);
     }
 
+    @PutMapping("/{help-desk-id}")
+    public HelpDeskResponseDTO updateHelpDeskById(@PathVariable("help-desk-id") Long helpDeskId, @RequestBody CreateHelpDeskRequestDTO createHelpDeskRequestDTO){
+        HelpDesk helpDesk = helpDeskService.updateHelpDeskById(helpDeskId,createHelpDeskRequestDTO);
+        HelpDeskResponseDTO helpDeskResponseDTO= new HelpDeskResponseDTO();
+        helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
+
+        return helpDeskResponseDTO;
+    }
+
 
 
 }
