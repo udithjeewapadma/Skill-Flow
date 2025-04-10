@@ -1,6 +1,7 @@
 package com.example.skill_flow_paf.Service.Impl;
 
 import com.example.skill_flow_paf.Controller.DTO.request.CreateHelpDeskRequestDTO;
+import com.example.skill_flow_paf.Controller.DTO.response.HelpDeskResponseDTO;
 import com.example.skill_flow_paf.Exception.HelpDeskNotFoundException;
 import com.example.skill_flow_paf.Exception.UserNotFoundExecption;
 import com.example.skill_flow_paf.Models.HelpDesk;
@@ -29,6 +30,19 @@ public class HelpDeskServiceImpl implements HelpDeskService {
         helpDesk.setQuestion(createHelpDeskRequestDTO.getQuestion());
         helpDesk.setUser(user);
         return helpDeskRepository.save(helpDesk);
+    }
+
+    @Override
+    public HelpDeskResponseDTO findHelpDeskById(Long id) {
+        HelpDesk helpDesk = helpDeskRepository.findById(id).orElseThrow(()-> new HelpDeskNotFoundException("HelpDesk not found"));
+        User user =userRepository.findById(id).orElseThrow(()-> new UserNotFoundExecption("User not found"));
+
+        HelpDeskResponseDTO helpDeskResponseDTO = new HelpDeskResponseDTO();
+        helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
+        helpDeskResponseDTO.setId(helpDesk.getId());
+        helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
+
+        return helpDeskResponseDTO;
     }
 
 }
