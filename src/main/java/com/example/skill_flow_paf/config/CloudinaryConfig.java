@@ -10,9 +10,9 @@ import java.util.Map;
 @Configuration
 public class CloudinaryConfig {
 
-    private final String CLOUD_NAME = "skillFlow";
-    private final String API_KEY = "427293554287241";
-    private final String API_SECRET = "Ym-WExjGUZMOMHUzcBzcqEVleCY";
+    private final String CLOUD_NAME = "dtcv8bhmd";
+    private final String API_KEY = "167523784258788";
+    private final String API_SECRET = "jt1BB90WQL6vLAELTKCTLzqYtlU";
 
     @Bean
     public Cloudinary cloudinary(){
