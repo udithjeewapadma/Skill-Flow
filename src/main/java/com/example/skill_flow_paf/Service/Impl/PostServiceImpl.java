@@ -142,4 +142,13 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Long postId) {
          postRepository.deleteById(postId);
     }
+
+    @Override
+    public Post likePost(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException("Comment not found"));
+
+        post.setLikedCount(post.getLikedCount() + 1);
+        return postRepository.save(post);
+    }
 }
