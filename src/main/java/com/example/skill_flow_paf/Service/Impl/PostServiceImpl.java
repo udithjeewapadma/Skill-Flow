@@ -137,4 +137,9 @@ public class PostServiceImpl implements PostService {
                 updatedPost.getImageUrl(), updatedPost.getUser().getId(),
                 updatedPost.getCategory().getId());
     }
+
+    @Override
+    public void deletePost(Long postId) {
+         postRepository.deleteById(postId);
+    }
 }
