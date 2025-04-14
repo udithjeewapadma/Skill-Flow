@@ -15,4 +15,7 @@ public interface PostService {
 
     PostResponseDTO findById(Long postId);
 
+    PostResponseDTO updatePost(Long postId, CreatePostRequestDTO postDTO) throws IOException;
+
+
 }

@@ -3,7 +3,6 @@ package com.example.skill_flow_paf.Controller;
 import com.example.skill_flow_paf.Controller.DTO.request.CreatePostRequestDTO;
 import com.example.skill_flow_paf.Controller.DTO.response.PostResponseDTO;
 import com.example.skill_flow_paf.Exception.PostNotFoundException;
-import com.example.skill_flow_paf.Models.Post;
 import com.example.skill_flow_paf.Service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

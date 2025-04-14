@@ -101,4 +101,40 @@ public class PostServiceImpl implements PostService {
                 post.getImageUrl(), post.getUser().getId(),
                 post.getCategory().getId());
     }
+
+    @Override
+    public PostResponseDTO updatePost(Long postId, CreatePostRequestDTO postDTO) throws IOException {
+        // Fetch the post by ID
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException("Post not found"));
+
+        // Update title if provided
+        if (postDTO.getTitle() != null) post.setTitle(postDTO.getTitle());
+
+        // Update description if provided
+        if (postDTO.getDescription() != null) post.setDescription(postDTO.getDescription());
+
+        // Update image files if new ones are provided
+        if (postDTO.getImageFiles() != null && !postDTO.getImageFiles().isEmpty()) {
+            List<String> imageUrls = new ArrayList<>();
+            for (MultipartFile file : postDTO.getImageFiles()) {
+                String imageUrl = cloudinary.uploader()
+                        .upload(file.getBytes(),
+                                Map.of("public_id", UUID.randomUUID().toString()))
+                        .get("url")
+                        .toString();
+                imageUrls.add(imageUrl);
+            }
+            post.setImageUrl(imageUrls);  // Update the post's image URL
+        }
+
+        // Save the updated post to the database
+        Post updatedPost = postRepository.save(post);
+
+        // Return the updated PostResponseDTO
+        return new PostResponseDTO(
+                updatedPost.getId(), updatedPost.getTitle(), updatedPost.getDescription(),
+                updatedPost.getImageUrl(), updatedPost.getUser().getId(),
+                updatedPost.getCategory().getId());
+    }
 }
