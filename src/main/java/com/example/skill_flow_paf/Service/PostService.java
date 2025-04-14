@@ -20,5 +20,8 @@ public interface PostService {
 
     void deletePost(Long postId);
 
+    Post likePost(Long commentId);
+
+
 
 }
