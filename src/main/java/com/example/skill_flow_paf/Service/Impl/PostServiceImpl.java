@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -77,5 +78,15 @@ public class PostServiceImpl implements PostService {
                 savedPost.getId(), savedPost.getTitle(), savedPost.getDescription(),
                 savedPost.getImageUrl(), savedPost.getUser().getId(),
                 savedPost.getCategory().getId());
+    }
+
+    @Override
+    public List<PostResponseDTO> getAllPosts() {
+        return postRepository.findAll().stream()
+                .map(post -> new PostResponseDTO(
+                        post.getId(), post.getTitle(), post.getDescription(),
+                        post.getImageUrl(), post.getUser().getId(),
+                        post.getCategory().getId()))
+                .collect(Collectors.toList());
     }
 }
