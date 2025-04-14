@@ -35,4 +35,10 @@ public class PostController {
     public PostResponseDTO getPostById(@PathVariable("post-id") Long postId) throws PostNotFoundException {
         return postService.findById(postId);
     }
+
+    @PutMapping("/{post-id}")
+    public ResponseEntity<PostResponseDTO> updatePost(@RequestBody CreatePostRequestDTO requestDTO, @PathVariable("post-id") Long postId) throws IOException {
+        return ResponseEntity.ok(postService.updatePost(postId, requestDTO));
+    }
+
 }
