@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.example.skill_flow_paf.Controller.DTO.request.CreatePostRequestDTO;
 import com.example.skill_flow_paf.Controller.DTO.response.PostResponseDTO;
 import com.example.skill_flow_paf.Exception.CategoryNotFoundException;
+import com.example.skill_flow_paf.Exception.PostNotFoundException;
 import com.example.skill_flow_paf.Exception.UserNotFoundExecption;
 import com.example.skill_flow_paf.Models.Category;
 import com.example.skill_flow_paf.Models.Post;
@@ -88,5 +89,16 @@ public class PostServiceImpl implements PostService {
                         post.getImageUrl(), post.getUser().getId(),
                         post.getCategory().getId()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PostResponseDTO findById(Long postId) throws PostNotFoundException {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException("Post not found"));
+
+        return new PostResponseDTO(
+                post.getId(), post.getTitle(), post.getDescription(),
+                post.getImageUrl(), post.getUser().getId(),
+                post.getCategory().getId());
     }
 }
