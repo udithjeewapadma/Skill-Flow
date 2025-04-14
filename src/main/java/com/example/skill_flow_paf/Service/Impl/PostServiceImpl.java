@@ -144,7 +144,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post likePost(Long postId) {
+    public Post likePost(Long postId) throws PostNotFoundException {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("Comment not found"));
 
