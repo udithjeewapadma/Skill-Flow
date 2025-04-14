@@ -13,4 +13,6 @@ public interface PostService {
 
     List<PostResponseDTO> getAllPosts();
 
+    PostResponseDTO findById(Long postId);
+
 }
