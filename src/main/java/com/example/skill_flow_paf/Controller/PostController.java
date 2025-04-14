@@ -46,4 +46,9 @@ public class PostController {
         postService.deletePost(postId);
     }
 
+    @PostMapping("/{postId}/like")
+    public ResponseEntity<String> likePost(@PathVariable Long postId) {
+        postService.likePost(postId);
+        return ResponseEntity.ok("Comment liked successfully!");
+    }
 }
