@@ -39,4 +39,9 @@ public class CommentController {
     private List<CommentResponseDTO> getAllComments(){
         return commentService.findAll();
     }
+
+    @DeleteMapping("/{comment-id}")
+    private void deleteComment(@PathVariable("comment-id") Long commentId){
+        commentService.deleteComment(commentId);
+    }
 }
