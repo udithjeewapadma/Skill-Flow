@@ -81,9 +81,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment updateCommentById(Long id, CreateCommentRequestDTO createCommentRequestDTO) {
+
         Comment existingComment = commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException("comment not found"));
 
         existingComment.setContent(createCommentRequestDTO.getContent());
+
         return commentRepository.save(existingComment);
     }
 }

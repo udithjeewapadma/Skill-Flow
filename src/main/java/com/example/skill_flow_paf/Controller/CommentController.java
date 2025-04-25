@@ -44,4 +44,16 @@ public class CommentController {
     private void deleteComment(@PathVariable("comment-id") Long commentId){
         commentService.deleteComment(commentId);
     }
+
+    @PutMapping("/{comment-id}")
+    private CommentResponseDTO updateCommentById(@PathVariable("comment-id") Long commentId, @RequestBody CreateCommentRequestDTO createCommentRequestDTO){
+
+        Comment comment = commentService.updateCommentById(commentId,createCommentRequestDTO);
+
+        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
+
+        commentResponseDTO.setContent(comment.getContent());
+
+        return commentResponseDTO;
+    }
 }
