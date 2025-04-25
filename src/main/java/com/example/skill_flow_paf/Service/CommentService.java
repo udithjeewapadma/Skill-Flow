@@ -14,4 +14,6 @@ public interface CommentService {
     List<CommentResponseDTO> findAll();
 
     void deleteComment(Long id);
+
+    Comment updateCommentById(Long id,CreateCommentRequestDTO createCommentRequestDTO);
 }
