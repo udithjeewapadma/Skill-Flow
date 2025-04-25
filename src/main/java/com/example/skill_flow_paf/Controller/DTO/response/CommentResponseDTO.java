@@ -8,6 +8,5 @@ public class CommentResponseDTO {
     private String content;
     private Long userId;
     private Long postId;
-    private int likedCount;
 
 }
