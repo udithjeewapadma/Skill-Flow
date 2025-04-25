@@ -7,6 +7,8 @@ import com.example.skill_flow_paf.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
@@ -31,5 +33,10 @@ public class CommentController {
     @GetMapping("/{comment-id}")
     private CommentResponseDTO getCommentById(@PathVariable("comment-id") Long commentId){
         return commentService.findById(commentId);
+    }
+
+    @GetMapping
+    private List<CommentResponseDTO> getAllComments(){
+        return commentService.findAll();
     }
 }

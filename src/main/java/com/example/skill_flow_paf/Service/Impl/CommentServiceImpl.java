@@ -73,4 +73,9 @@ public class CommentServiceImpl implements CommentService {
         }).collect(Collectors.toList());
 
     }
+
+    @Override
+    public void deleteComment(Long id) {
+         commentRepository.deleteById(id);
+    }
 }
