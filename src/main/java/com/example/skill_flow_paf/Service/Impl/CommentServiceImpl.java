@@ -1,6 +1,8 @@
 package com.example.skill_flow_paf.Service.Impl;
 
 import com.example.skill_flow_paf.Controller.DTO.request.CreateCommentRequestDTO;
+import com.example.skill_flow_paf.Controller.DTO.response.CommentResponseDTO;
+import com.example.skill_flow_paf.Exception.CommentNotFoundException;
 import com.example.skill_flow_paf.Exception.PostNotFoundException;
 import com.example.skill_flow_paf.Exception.UserNotFoundExecption;
 import com.example.skill_flow_paf.Models.Comment;
@@ -37,5 +39,18 @@ public class CommentServiceImpl implements CommentService {
         comment.setPost(post);
         return commentRepository.save(comment);
         
+    }
+
+    @Override
+    public CommentResponseDTO findById(Long id) throws CommentNotFoundException {
+        Comment comment = commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException("comment id not found"));
+
+        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
+        commentResponseDTO.setId(comment.getId());
+        commentResponseDTO.setUserId(comment.getUser().getId());
+        commentResponseDTO.setPostId(comment.getPost().getId());
+        commentResponseDTO.setContent(comment.getContent());
+
+        return commentResponseDTO;
     }
 }
