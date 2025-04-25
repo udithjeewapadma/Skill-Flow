@@ -27,4 +27,9 @@ public class CommentController {
 
         return commentResponseDTO;
     }
+
+    @GetMapping("/{comment-id}")
+    private CommentResponseDTO getCommentById(@PathVariable("comment-id") Long commentId){
+        return commentService.findById(commentId);
+    }
 }

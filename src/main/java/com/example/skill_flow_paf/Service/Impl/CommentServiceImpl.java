@@ -15,6 +15,9 @@ import com.example.skill_flow_paf.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CommentServiceImpl implements CommentService {
     
@@ -52,5 +55,22 @@ public class CommentServiceImpl implements CommentService {
         commentResponseDTO.setContent(comment.getContent());
 
         return commentResponseDTO;
+    }
+
+    @Override
+    public List<CommentResponseDTO> findAll() {
+        List<Comment> comments = commentRepository.findAll();
+
+        return comments.stream().map(comment -> {
+            CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
+            commentResponseDTO.setId(comment.getId());
+            commentResponseDTO.setUserId(comment.getUser().getId());
+            commentResponseDTO.setPostId(comment.getPost().getId());
+            commentResponseDTO.setContent(comment.getContent());
+
+            return commentResponseDTO;
+
+        }).collect(Collectors.toList());
+
     }
 }
