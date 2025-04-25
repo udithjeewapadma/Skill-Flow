@@ -19,6 +19,7 @@ public class LearningPlan {
     private String description;
     private String resources;
     private String timeLine;
+    private int progress;
 
 
     @ManyToMany
