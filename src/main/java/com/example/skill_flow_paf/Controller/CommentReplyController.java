@@ -25,4 +25,9 @@ public class CommentReplyController {
         return commentReplyResponseDTO;
     }
 
+    @GetMapping("/{comment-reply-id}")
+    private CommentReplyResponseDTO findById(@PathVariable("comment-reply-id") Long commentReplyId){
+        return commentReplyService.findById(commentReplyId);
+    }
+
 }
