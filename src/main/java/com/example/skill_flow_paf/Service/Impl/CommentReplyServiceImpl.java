@@ -4,8 +4,10 @@ import com.example.skill_flow_paf.Controller.DTO.request.CreateCommentReplyReque
 import com.example.skill_flow_paf.Controller.DTO.response.CommentReplyResponseDTO;
 import com.example.skill_flow_paf.Exception.CommentNotFoundException;
 import com.example.skill_flow_paf.Exception.CommentReplyException;
+import com.example.skill_flow_paf.Exception.ReplyNotFoundException;
 import com.example.skill_flow_paf.Models.Comment;
 import com.example.skill_flow_paf.Models.CommentReply;
+import com.example.skill_flow_paf.Models.Reply;
 import com.example.skill_flow_paf.Repository.CommentReplyRepository;
 import com.example.skill_flow_paf.Repository.CommentRepository;
 import com.example.skill_flow_paf.Service.CommentReplyService;
@@ -62,6 +64,15 @@ public class CommentReplyServiceImpl implements CommentReplyService {
     @Override
     public void deleteById(Long id) {
         commentReplyRepository.deleteById(id);
+    }
+
+    @Override
+    public CommentReply updateCommentReply(Long id, CreateCommentReplyRequestDTO createCommentReplyRequestDTO) throws CommentReplyException{
+        CommentReply existingCommentReply = commentReplyRepository
+                .findById(id).orElseThrow(()-> new CommentReplyException("comment reply not found"));
+
+        existingCommentReply.setReplyBody(createCommentReplyRequestDTO.getReplyBody());
+        return commentReplyRepository.save(existingCommentReply);
     }
 
 
