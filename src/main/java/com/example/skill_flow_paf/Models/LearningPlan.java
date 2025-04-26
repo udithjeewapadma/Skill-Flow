@@ -14,11 +14,11 @@ public class LearningPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String title;
     private String description;
     private String resources;
     private String timeLine;
+    private int progress;
 
 
     @ManyToMany
@@ -28,4 +28,5 @@ public class LearningPlan {
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     private List<Post> posts;
+
 }
