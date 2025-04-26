@@ -31,6 +31,7 @@ public class LearningPlanController {
         learningPlanResponseDTO.setId(learningPlan.getId());
         learningPlanResponseDTO.setTitle(learningPlan.getTitle());
         learningPlanResponseDTO.setDescription(learningPlan.getDescription());
+        learningPlanResponseDTO.setProgress(learningPlan.getProgress());
 
         // Handle resources list correctly
         learningPlanResponseDTO.setResources(
@@ -40,7 +41,6 @@ public class LearningPlanController {
         );
 
         learningPlanResponseDTO.setTimeLine(learningPlan.getTimeLine());
-        learningPlanResponseDTO.setUserId(learningPlan.getUserId());
 
         // Set post IDs from learningPlan
         learningPlanResponseDTO.setPostIds(

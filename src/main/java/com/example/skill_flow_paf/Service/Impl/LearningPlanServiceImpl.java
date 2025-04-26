@@ -49,7 +49,6 @@ public class LearningPlanServiceImpl implements LearningPlanService {
         learningPlan.setTimeLine(dto.getTimeLine());
         learningPlan.setProgress(dto.getProgress());
         learningPlan.setPosts(posts);
-        learningPlan.setUserId(user.getId());
 
         return learningPlanRepository.save(learningPlan);
     }

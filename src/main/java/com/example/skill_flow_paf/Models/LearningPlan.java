@@ -14,7 +14,6 @@ public class LearningPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String title;
     private String description;
     private String resources;
@@ -30,9 +29,4 @@ public class LearningPlan {
     )
     private List<Post> posts;
 
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(name = "main_post_id")
-    private Long mainPostId;
 }
