@@ -51,6 +51,12 @@ public class LearningPlanController {
 
         return learningPlanResponseDTO;
     }
+
+    @GetMapping("/{learning-plan-id}")
+    private LearningPlanResponseDTO getById(@PathVariable("learning-plan-id") Long learningPlanId){
+        return learningPlanService.findById(learningPlanId);
+    }
+
 }
 
 
