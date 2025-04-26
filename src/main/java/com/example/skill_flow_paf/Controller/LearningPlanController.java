@@ -57,6 +57,11 @@ public class LearningPlanController {
         return learningPlanService.findById(learningPlanId);
     }
 
+    @GetMapping
+    private List<LearningPlanResponseDTO> getAll(){
+        return learningPlanService.findAll();
+    }
+
 }
 
 
