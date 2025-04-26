@@ -11,4 +11,6 @@ public interface LearningPlanService {
 
     LearningPlanResponseDTO findById(Long id);
 
+    List<LearningPlanResponseDTO> findAll();
+
 }

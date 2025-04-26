@@ -79,5 +79,27 @@ public class LearningPlanServiceImpl implements LearningPlanService {
         return responseDTO;
     }
 
+    @Override
+    public List<LearningPlanResponseDTO> findAll() {
+
+        List<LearningPlan> learningPlans = learningPlanRepository.findAll();
+
+        return learningPlans.stream()
+                .map(learningPlan -> {
+                    LearningPlanResponseDTO responseDTO = new LearningPlanResponseDTO();
+                    responseDTO.setId(learningPlan.getId());
+                    responseDTO.setTitle(learningPlan.getTitle());
+                    responseDTO.setDescription(learningPlan.getDescription());
+                    responseDTO.setResources(
+                            learningPlan.getResources() != null ? List.of(learningPlan.getResources().split(",")) : Collections.emptyList()
+                    );
+                    responseDTO.setTimeLine(learningPlan.getTimeLine());
+                    responseDTO.setPostIds(learningPlan.getPosts().stream()
+                            .map(Post::getId) // Extract post IDs
+                            .toList());
+                    return responseDTO;
+                })
+                .toList();
+    }
 
 }
