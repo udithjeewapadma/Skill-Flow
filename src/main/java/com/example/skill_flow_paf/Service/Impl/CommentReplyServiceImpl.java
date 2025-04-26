@@ -12,6 +12,9 @@ import com.example.skill_flow_paf.Service.CommentReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CommentReplyServiceImpl implements CommentReplyService {
     @Autowired
@@ -40,6 +43,20 @@ public class CommentReplyServiceImpl implements CommentReplyService {
         commentReplyResponseDTO.setReplyBody(commentReply.getReplyBody());
 
         return commentReplyResponseDTO;
+    }
+
+    @Override
+    public List<CommentReplyResponseDTO> findAll() {
+        List<CommentReply> commentReplies = commentReplyRepository.findAll();
+
+        return commentReplies.stream().map(commentReply -> {
+            CommentReplyResponseDTO commentReplyResponseDTO = new CommentReplyResponseDTO();
+            commentReplyResponseDTO.setReplyBody(commentReply.getReplyBody());
+            commentReplyResponseDTO.setId(commentReply.getId());
+            commentReplyResponseDTO.setCommentId(commentReply.getComment().getId());
+
+            return commentReplyResponseDTO;
+        }).collect(Collectors.toList());
     }
 
 
