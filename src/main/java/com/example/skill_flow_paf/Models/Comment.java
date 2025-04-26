@@ -3,6 +3,8 @@ package com.example.skill_flow_paf.Models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "comments")
@@ -24,4 +26,9 @@ public class Comment {
 
     @Column(nullable = false)
     private int likedCount = 0;
+
+    @OneToMany(mappedBy = "comment")
+    private List<CommentReply> commentReply;
+    //come to many comments
+    //one comment has many reply
 }

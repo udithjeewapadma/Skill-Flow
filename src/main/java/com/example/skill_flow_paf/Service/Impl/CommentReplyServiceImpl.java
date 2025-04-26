@@ -1,0 +1,79 @@
+package com.example.skill_flow_paf.Service.Impl;
+
+import com.example.skill_flow_paf.Controller.DTO.request.CreateCommentReplyRequestDTO;
+import com.example.skill_flow_paf.Controller.DTO.response.CommentReplyResponseDTO;
+import com.example.skill_flow_paf.Exception.CommentNotFoundException;
+import com.example.skill_flow_paf.Exception.CommentReplyException;
+import com.example.skill_flow_paf.Exception.ReplyNotFoundException;
+import com.example.skill_flow_paf.Models.Comment;
+import com.example.skill_flow_paf.Models.CommentReply;
+import com.example.skill_flow_paf.Models.Reply;
+import com.example.skill_flow_paf.Repository.CommentReplyRepository;
+import com.example.skill_flow_paf.Repository.CommentRepository;
+import com.example.skill_flow_paf.Service.CommentReplyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class CommentReplyServiceImpl implements CommentReplyService {
+    @Autowired
+    private CommentReplyRepository commentReplyRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Override
+    public CommentReply createCommentReply(Long commentId, CreateCommentReplyRequestDTO createCommentReplyRequestDTO) throws CommentNotFoundException{
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()->new CommentNotFoundException("comment id not found"));
+        CommentReply commentReply = new CommentReply();
+        commentReply.setReplyBody(createCommentReplyRequestDTO.getReplyBody());
+        commentReply.setComment(comment);
+
+        return commentReplyRepository.save(commentReply);
+    }
+
+    @Override
+    public CommentReplyResponseDTO findById(Long id) {
+        CommentReply commentReply = commentReplyRepository.findById(id).orElseThrow(()->new CommentReplyException("comment reply id is not found"));
+        CommentReplyResponseDTO commentReplyResponseDTO = new CommentReplyResponseDTO();
+
+        commentReplyResponseDTO.setCommentId(commentReply.getComment().getId());
+        commentReplyResponseDTO.setId(commentReply.getId());
+        commentReplyResponseDTO.setReplyBody(commentReply.getReplyBody());
+
+        return commentReplyResponseDTO;
+    }
+
+    @Override
+    public List<CommentReplyResponseDTO> findAll() {
+        List<CommentReply> commentReplies = commentReplyRepository.findAll();
+
+        return commentReplies.stream().map(commentReply -> {
+            CommentReplyResponseDTO commentReplyResponseDTO = new CommentReplyResponseDTO();
+            commentReplyResponseDTO.setReplyBody(commentReply.getReplyBody());
+            commentReplyResponseDTO.setId(commentReply.getId());
+            commentReplyResponseDTO.setCommentId(commentReply.getComment().getId());
+
+            return commentReplyResponseDTO;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        commentReplyRepository.deleteById(id);
+    }
+
+    @Override
+    public CommentReply updateCommentReply(Long id, CreateCommentReplyRequestDTO createCommentReplyRequestDTO) throws CommentReplyException{
+        CommentReply existingCommentReply = commentReplyRepository
+                .findById(id).orElseThrow(()-> new CommentReplyException("comment reply not found"));
+
+        existingCommentReply.setReplyBody(createCommentReplyRequestDTO.getReplyBody());
+        return commentReplyRepository.save(existingCommentReply);
+    }
+
+
+}
