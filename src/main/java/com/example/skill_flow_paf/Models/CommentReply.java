@@ -1,8 +1,10 @@
 package com.example.skill_flow_paf.Models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class CommentReply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
