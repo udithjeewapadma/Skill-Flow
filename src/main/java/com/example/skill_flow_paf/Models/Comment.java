@@ -24,4 +24,8 @@ public class Comment {
 
     @Column(nullable = false)
     private int likedCount = 0;
+
+    @OneToMany(mappedBy = "comment")
+    private CommentReply commentReply;
+    //one comment has many reply
 }
