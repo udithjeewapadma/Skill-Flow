@@ -62,6 +62,11 @@ public class LearningPlanController {
         return learningPlanService.findAll();
     }
 
+
+    @DeleteMapping("/{learning-plan-id}")
+    private void deleteById(@PathVariable("learning-plan-id") Long learningPlanId){
+        learningPlanService.deleteById(learningPlanId);
+    }
 }
 
 
