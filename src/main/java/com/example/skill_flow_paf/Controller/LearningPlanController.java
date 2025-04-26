@@ -67,6 +67,14 @@ public class LearningPlanController {
     private void deleteById(@PathVariable("learning-plan-id") Long learningPlanId){
         learningPlanService.deleteById(learningPlanId);
     }
+
+    @PutMapping("/{learning-plan-id}")
+    public LearningPlanResponseDTO updateLearningPlan(@PathVariable("learning-plan-id")
+                                                      Long id,
+                                                      @RequestBody CreateLearningPlanRequestDTO createLearningPlanRequestDTO) {
+        return learningPlanService.updateLearningPlan(id, createLearningPlanRequestDTO);
+
+}
 }
 
 
