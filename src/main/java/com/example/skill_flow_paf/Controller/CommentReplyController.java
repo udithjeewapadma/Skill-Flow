@@ -37,4 +37,8 @@ public class CommentReplyController {
         return commentReplyService.findAll();
     }
 
+    @DeleteMapping("/{comment-reply-id}")
+    private void deleteById(@PathVariable("comment-reply-id") Long commentReplyId){
+        commentReplyService.deleteById(commentReplyId);
+    }
 }
