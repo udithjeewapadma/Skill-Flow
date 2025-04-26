@@ -12,6 +12,7 @@ public class LearningPlanResponseDTO {
     private String description;
     private List<String> resources;
     private String timeLine;
-    private List<Long> postIds;
     private int progress;
+    private List<Long> postIds;
+    private Long userId;
 }

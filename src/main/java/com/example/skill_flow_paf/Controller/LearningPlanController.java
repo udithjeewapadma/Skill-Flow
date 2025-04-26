@@ -6,10 +6,7 @@ import com.example.skill_flow_paf.Models.LearningPlan;
 import com.example.skill_flow_paf.Models.Post;
 import com.example.skill_flow_paf.Service.LearningPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,26 +20,38 @@ public class LearningPlanController {
 
 
     @PostMapping
-    public LearningPlanResponseDTO createLearningPlan(@RequestBody CreateLearningPlanRequestDTO createLearningPlanRequestDTO) {
-        LearningPlan learningPlan = learningPlanService.createLearningPlan(createLearningPlanRequestDTO);
+    public LearningPlanResponseDTO createLearningPlan(
+            @RequestParam Long userId,  // User ID as query param
+            @RequestBody CreateLearningPlanRequestDTO createLearningPlanRequestDTO) {  // Receive body in DTO
 
+        LearningPlan learningPlan = learningPlanService.createLearningPlan(userId, createLearningPlanRequestDTO);
+
+        // Mapping response DTO
         LearningPlanResponseDTO learningPlanResponseDTO = new LearningPlanResponseDTO();
         learningPlanResponseDTO.setId(learningPlan.getId());
         learningPlanResponseDTO.setTitle(learningPlan.getTitle());
         learningPlanResponseDTO.setDescription(learningPlan.getDescription());
 
+        // Handle resources list correctly
         learningPlanResponseDTO.setResources(
-                learningPlan.getResources() != null ? List.of(learningPlan.getResources().split(",")) : Collections.emptyList()
+                learningPlan.getResources() != null
+                        ? List.of(learningPlan.getResources().split(","))
+                        : Collections.emptyList()
         );
 
         learningPlanResponseDTO.setTimeLine(learningPlan.getTimeLine());
+        learningPlanResponseDTO.setUserId(learningPlan.getUserId());
 
-        // Correctly extract post IDs
-        learningPlanResponseDTO.setPostIds(learningPlan.getPosts().stream()
-                .map(Post::getId)
-                .toList());
+        // Set post IDs from learningPlan
+        learningPlanResponseDTO.setPostIds(
+                learningPlan.getPosts().stream()
+                        .map(Post::getId)  // Convert list of posts to list of IDs
+                        .toList()
+        );
 
         return learningPlanResponseDTO;
     }
-
 }
+
+
+

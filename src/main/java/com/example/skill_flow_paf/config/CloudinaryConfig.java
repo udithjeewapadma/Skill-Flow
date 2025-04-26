@@ -1,4 +1,4 @@
-package com.example.skill_flow_paf.Config;
+package com.example.skill_flow_paf.config;
 
 import com.cloudinary.Cloudinary;
 import org.springframework.context.annotation.Bean;

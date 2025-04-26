@@ -29,4 +29,10 @@ public class LearningPlan {
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     private List<Post> posts;
+
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "main_post_id")
+    private Long mainPostId;
 }
