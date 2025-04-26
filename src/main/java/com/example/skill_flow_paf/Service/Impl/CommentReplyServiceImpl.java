@@ -59,5 +59,10 @@ public class CommentReplyServiceImpl implements CommentReplyService {
         }).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteById(Long id) {
+        commentReplyRepository.deleteById(id);
+    }
+
 
 }

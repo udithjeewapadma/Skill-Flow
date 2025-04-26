@@ -13,4 +13,7 @@ public interface CommentReplyService {
 
     List<CommentReplyResponseDTO> findAll();
 
+    void deleteById(Long id);
+
+
 }
