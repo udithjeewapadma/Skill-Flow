@@ -13,4 +13,6 @@ public interface LearningPlanService {
 
     List<LearningPlanResponseDTO> findAll();
 
+    void deleteById(Long id);
+
 }

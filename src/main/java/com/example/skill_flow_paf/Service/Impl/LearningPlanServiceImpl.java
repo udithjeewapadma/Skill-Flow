@@ -102,4 +102,9 @@ public class LearningPlanServiceImpl implements LearningPlanService {
                 .toList();
     }
 
+    @Override
+    public void deleteById(Long id) {
+        learningPlanRepository.deleteById(id);
+    }
+
 }
