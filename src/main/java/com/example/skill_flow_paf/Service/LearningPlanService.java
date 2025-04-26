@@ -15,4 +15,6 @@ public interface LearningPlanService {
 
     void deleteById(Long id);
 
+    LearningPlanResponseDTO updateLearningPlan(Long id,CreateLearningPlanRequestDTO createLearningPlanRequestDTO);
+
 }

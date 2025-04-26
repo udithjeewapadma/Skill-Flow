@@ -107,4 +107,35 @@ public class LearningPlanServiceImpl implements LearningPlanService {
         learningPlanRepository.deleteById(id);
     }
 
+    @Override
+    public LearningPlanResponseDTO updateLearningPlan(Long id, CreateLearningPlanRequestDTO createLearningPlanRequestDTO)
+            throws LearningPlanNotFoundException {
+
+        LearningPlan existingLearningPlan = learningPlanRepository.findById(id)
+                .orElseThrow(() -> new LearningPlanNotFoundException("Learning plan not found with id: " + id));
+
+        existingLearningPlan.setTitle(createLearningPlanRequestDTO.getTitle());
+        existingLearningPlan.setDescription(createLearningPlanRequestDTO.getDescription());
+        existingLearningPlan.setResources(String.join(",", createLearningPlanRequestDTO.getResources()));  // Convert list back to string
+        existingLearningPlan.setTimeLine(createLearningPlanRequestDTO.getTimeLine());
+        existingLearningPlan.setProgress(createLearningPlanRequestDTO.getProgress());
+
+        LearningPlan updatedLearningPlan = learningPlanRepository.save(existingLearningPlan);
+
+        LearningPlanResponseDTO responseDTO = new LearningPlanResponseDTO();
+
+        responseDTO.setId(updatedLearningPlan.getId());
+        responseDTO.setTitle(updatedLearningPlan.getTitle());
+        responseDTO.setDescription(updatedLearningPlan.getDescription());
+        responseDTO.setProgress(updatedLearningPlan.getProgress());
+        responseDTO.setResources(
+                updatedLearningPlan.getResources() != null ? List.of(updatedLearningPlan.getResources().split(",")) : Collections.emptyList()
+        );
+        responseDTO.setTimeLine(updatedLearningPlan.getTimeLine());
+        responseDTO.setPostIds(updatedLearningPlan.getPosts().stream()
+                .map(Post::getId)
+                .toList());
+
+        return responseDTO;
+    }
 }
