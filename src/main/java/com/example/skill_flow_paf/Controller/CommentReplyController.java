@@ -1,0 +1,27 @@
+package com.example.skill_flow_paf.Controller;
+
+import com.example.skill_flow_paf.Controller.DTO.request.CreateCommentReplyRequestDTO;
+import com.example.skill_flow_paf.Controller.DTO.response.CommentReplyResponseDTO;
+import com.example.skill_flow_paf.Models.CommentReply;
+import com.example.skill_flow_paf.Service.CommentReplyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/commentReplies")
+public class CommentReplyController {
+    @Autowired
+    private CommentReplyService commentReplyService;
+
+    @PostMapping
+    private CommentReplyResponseDTO createCommentReply(@RequestParam Long commentId, @RequestBody CreateCommentReplyRequestDTO createCommentReplyRequestDTO){
+        CommentReply commentReply = commentReplyService.createCommentReply(commentId, createCommentReplyRequestDTO);
+
+        CommentReplyResponseDTO commentReplyResponseDTO = new CommentReplyResponseDTO();
+        commentReplyResponseDTO.setReplyBody(commentReply.getReplyBody());
+        commentReplyResponseDTO.setCommentId(commentReply.getComment().getId());
+
+        return commentReplyResponseDTO;
+    }
+
+}
