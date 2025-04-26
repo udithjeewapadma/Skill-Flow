@@ -1,6 +1,8 @@
 package com.example.skill_flow_paf.Controller;
 
 import com.example.skill_flow_paf.Controller.DTO.request.CreateCommentReplyRequestDTO;
+import com.example.skill_flow_paf.Controller.DTO.request.CreateCommentRequestDTO;
+import com.example.skill_flow_paf.Controller.DTO.request.CreateReplyRequestDTO;
 import com.example.skill_flow_paf.Controller.DTO.response.CommentReplyResponseDTO;
 import com.example.skill_flow_paf.Models.CommentReply;
 import com.example.skill_flow_paf.Service.CommentReplyService;
@@ -40,5 +42,15 @@ public class CommentReplyController {
     @DeleteMapping("/{comment-reply-id}")
     private void deleteById(@PathVariable("comment-reply-id") Long commentReplyId){
         commentReplyService.deleteById(commentReplyId);
+    }
+
+    @PutMapping("/{comment-reply-id}")
+    private CommentReplyResponseDTO updateCommentReply(@PathVariable("comment-reply-id") Long commentReplyId, @RequestBody CreateCommentReplyRequestDTO createCommentReplyRequestDTO){
+        CommentReply commentReply = commentReplyService.updateCommentReply(commentReplyId , createCommentReplyRequestDTO);
+
+        CommentReplyResponseDTO commentReplyResponseDTO = new CommentReplyResponseDTO();
+        commentReplyResponseDTO.setReplyBody(commentReply.getReplyBody());
+
+        return commentReplyResponseDTO;
     }
 }
