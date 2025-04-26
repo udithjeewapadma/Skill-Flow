@@ -18,6 +18,7 @@ public class CommentReplyController {
         CommentReply commentReply = commentReplyService.createCommentReply(commentId, createCommentReplyRequestDTO);
 
         CommentReplyResponseDTO commentReplyResponseDTO = new CommentReplyResponseDTO();
+        commentReplyResponseDTO.setId(commentReply.getId());
         commentReplyResponseDTO.setReplyBody(commentReply.getReplyBody());
         commentReplyResponseDTO.setCommentId(commentReply.getComment().getId());
 
