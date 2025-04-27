@@ -5,6 +5,7 @@ import com.example.skill_flow_paf.Controller.DTO.response.CommentResponseDTO;
 import com.example.skill_flow_paf.Models.Comment;
 import com.example.skill_flow_paf.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +18,11 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping
-    private CommentResponseDTO createComment(@RequestParam Long postId, @RequestParam Long userId, @RequestBody CreateCommentRequestDTO createCommentRequestDTO){
+    private CommentResponseDTO createComment(@RequestParam Long userId,
+                                             @RequestParam Long postId,
+                                             @RequestBody CreateCommentRequestDTO createCommentRequestDTO){
 
-        Comment comment = commentService.createComment(postId,userId,createCommentRequestDTO);
+        Comment comment = commentService.createComment(userId,postId,createCommentRequestDTO);
 
         CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
         commentResponseDTO.setId(comment.getId());
@@ -55,5 +58,11 @@ public class CommentController {
         commentResponseDTO.setContent(comment.getContent());
 
         return commentResponseDTO;
+    }
+
+    @PostMapping("/{commentId}/like")
+    public ResponseEntity<String> likeComment(@PathVariable Long commentId) {
+        commentService.likeComment(commentId);
+        return ResponseEntity.ok("Comment liked successfully!");
     }
 }

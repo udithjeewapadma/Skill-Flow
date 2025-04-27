@@ -32,7 +32,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment createComment(Long userId, Long postId, CreateCommentRequestDTO createCommentRequestDTO) {
+
         User user = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundExecption("User Not Found"));
+
         Post post = postRepository.findById(postId).orElseThrow(()-> new PostNotFoundException("Post Not Found"));
         
         Comment comment = new Comment();
@@ -40,6 +42,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setContent(createCommentRequestDTO.getContent());
         comment.setUser(user);
         comment.setPost(post);
+
         return commentRepository.save(comment);
         
     }
@@ -87,5 +90,14 @@ public class CommentServiceImpl implements CommentService {
         existingComment.setContent(createCommentRequestDTO.getContent());
 
         return commentRepository.save(existingComment);
+    }
+
+    @Override
+    public Comment likeComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CommentNotFoundException("Comment not found"));
+
+        comment.setLikedCount(comment.getLikedCount() + 1);
+        return commentRepository.save(comment);
     }
 }
