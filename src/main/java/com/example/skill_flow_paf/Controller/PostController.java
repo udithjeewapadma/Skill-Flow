@@ -2,6 +2,7 @@ package com.example.skill_flow_paf.Controller;
 
 import com.example.skill_flow_paf.Controller.DTO.request.CreatePostRequestDTO;
 import com.example.skill_flow_paf.Controller.DTO.response.PostResponseDTO;
+import com.example.skill_flow_paf.Controller.DTO.response.PostWrapperDTO;
 import com.example.skill_flow_paf.Exception.PostNotFoundException;
 import com.example.skill_flow_paf.Service.PostService;
 import jakarta.validation.Valid;
@@ -28,8 +29,10 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostResponseDTO> getAllPosts() {
-        return postService.getAllPosts();
+    public ResponseEntity<PostWrapperDTO> getAllPosts() {
+        List<PostResponseDTO> posts = postService.getAllPosts();
+        return ResponseEntity.ok(new PostWrapperDTO(posts.size(), posts));
+
     }
 
     @GetMapping("/{post-id}")
