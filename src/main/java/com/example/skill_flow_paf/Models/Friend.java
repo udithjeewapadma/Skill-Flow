@@ -12,11 +12,11 @@ public class Friend {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user1_id")
-    private User user1; // First friend
+    @JoinColumn(name = "sender")
+    private User sender; // First friend
 
     @ManyToOne
-    @JoinColumn(name = "user2_id")
-    private User user2; // Second friend
+    @JoinColumn(name = "receiver")
+    private User receiver; // Second friend
 }
 
