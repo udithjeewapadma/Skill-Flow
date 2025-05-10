@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/helps")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 public class HelpDeskController {
 
     @Autowired
@@ -27,18 +27,13 @@ public class HelpDeskController {
         helpDeskResponseDTO.setId(helpDesk.getId());
         helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
         helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
-        helpDeskResponseDTO.setUserName(helpDesk.getUser().getUsername());
+
         return helpDeskResponseDTO;
     }
 
     @GetMapping("/{help-desk-id}")
     public HelpDeskResponseDTO getHelpDeskById(@PathVariable("help-desk-id") Long helpDeskId){
         return helpDeskService.findHelpDeskById(helpDeskId);
-    }
-
-    @GetMapping("/user/{user-id}")
-    public List<HelpDeskResponseDTO> getHelpDesksByUserId(@PathVariable("user-id") Long userId) {
-        return helpDeskService.findHelpDesksByUserId(userId);
     }
 
     @GetMapping

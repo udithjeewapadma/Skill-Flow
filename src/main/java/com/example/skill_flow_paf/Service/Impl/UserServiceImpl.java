@@ -26,8 +26,6 @@ public class UserServiceImpl implements UserService {
         user.setEmail(createUserRequestDTO.getEmail());
         user.setPhoneNumber(createUserRequestDTO.getPhoneNumber());
         user.setQualifications(createUserRequestDTO.getQualifications());
-        String role = createUserRequestDTO.getRole();
-        user.setRole((role != null && !role.isEmpty()) ? role : "user");
         return userRepository.save(user);
     }
 
@@ -44,7 +42,6 @@ public class UserServiceImpl implements UserService {
         userResponseDTO.setEmail(user.getEmail());
         userResponseDTO.setPhoneNumber(user.getPhoneNumber());
         userResponseDTO.setQualifications(user.getQualifications());
-        userResponseDTO.setRole(user.getRole());
         return userResponseDTO;
 
     }
@@ -60,7 +57,6 @@ public class UserServiceImpl implements UserService {
             userResponseDTO.setEmail(user.getEmail());
             userResponseDTO.setPhoneNumber(user.getPhoneNumber());
             userResponseDTO.setQualifications(user.getQualifications());
-            userResponseDTO.setRole(user.getRole());
 
             return userResponseDTO;
         }).collect(Collectors.toList());
@@ -77,7 +73,9 @@ public class UserServiceImpl implements UserService {
         User existingUser = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundExecption("User Id" + id + " not found"));
 
+        existingUser.setUsername(createUserRequestDTO.getUsername());
         existingUser.setAbout(createUserRequestDTO.getAbout());
+        existingUser.setEmail(createUserRequestDTO.getEmail());
         existingUser.setPhoneNumber(createUserRequestDTO.getPhoneNumber());
         existingUser.setQualifications(createUserRequestDTO.getQualifications());
 
