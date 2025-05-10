@@ -2,10 +2,12 @@ package com.example.skill_flow_paf.Controller;
 
 import com.example.skill_flow_paf.Controller.DTO.request.CreatePostRequestDTO;
 import com.example.skill_flow_paf.Controller.DTO.response.PostResponseDTO;
+import com.example.skill_flow_paf.Controller.DTO.response.PostWrapperDTO;
 import com.example.skill_flow_paf.Exception.PostNotFoundException;
 import com.example.skill_flow_paf.Service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +29,10 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostResponseDTO> getAllPosts() {
-        return postService.getAllPosts();
+    public ResponseEntity<PostWrapperDTO> getAllPosts() {
+        List<PostResponseDTO> posts = postService.getAllPosts();
+        return ResponseEntity.ok(new PostWrapperDTO(posts.size(), posts));
+
     }
 
     @GetMapping("/{post-id}")
@@ -36,10 +40,14 @@ public class PostController {
         return postService.findById(postId);
     }
 
-    @PutMapping("/{post-id}")
-    public ResponseEntity<PostResponseDTO> updatePost(@RequestBody CreatePostRequestDTO requestDTO, @PathVariable("post-id") Long postId) throws IOException {
-        return ResponseEntity.ok(postService.updatePost(postId, requestDTO));
+    @PutMapping(value = "/{postId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<PostResponseDTO> updatePost(
+            @PathVariable Long postId,
+            @ModelAttribute CreatePostRequestDTO createPostRequestDTO) throws IOException {
+        PostResponseDTO updatedPost = postService.updatePost(postId, createPostRequestDTO);
+        return ResponseEntity.ok(updatedPost);
     }
+
 
     @DeleteMapping("/{post-id}")
     public void deletePost(@PathVariable("post-id") Long postId){
