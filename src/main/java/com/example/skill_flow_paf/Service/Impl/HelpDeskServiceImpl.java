@@ -12,6 +12,7 @@ import com.example.skill_flow_paf.Service.HelpDeskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,10 +43,31 @@ public class HelpDeskServiceImpl implements HelpDeskService {
 
         HelpDeskResponseDTO helpDeskResponseDTO = new HelpDeskResponseDTO();
         helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
+        helpDeskResponseDTO.setUserName(helpDesk.getUser().getUsername()); // ✅ Add this
+        helpDeskResponseDTO.setId(helpDesk.getId());
         helpDeskResponseDTO.setId(helpDesk.getId());
         helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
 
+
         return helpDeskResponseDTO;
+    }
+
+    @Override
+    public List<HelpDeskResponseDTO> findHelpDesksByUserId(Long userId) {
+        // Fetch help desks by user ID
+        List<HelpDesk> helpDesks = helpDeskRepository.findByUserId(userId);
+
+        // Map the HelpDesk entities to HelpDeskResponseDTOs
+        return helpDesks.stream()
+                .map(helpDesk -> {
+                    HelpDeskResponseDTO responseDTO = new HelpDeskResponseDTO();
+                    responseDTO.setId(helpDesk.getId());
+                    responseDTO.setQuestion(helpDesk.getQuestion());
+                    responseDTO.setUserId(helpDesk.getUser().getId());
+                    responseDTO.setUserName(helpDesk.getUser().getUsername());
+                    return responseDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -58,6 +80,7 @@ public class HelpDeskServiceImpl implements HelpDeskService {
             helpDeskResponseDTO.setId(helpDesk.getId());
             helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
             helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
+            helpDeskResponseDTO.setUserName(helpDesk.getUser().getUsername()); // ✅ Add user name
 
             return helpDeskResponseDTO;
         }).collect(Collectors.toList());
