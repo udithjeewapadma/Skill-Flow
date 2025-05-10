@@ -38,9 +38,6 @@ public class ReplyServiceImpl implements ReplyService {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new UserNotFoundExecption("User not found"));
 
-        System.out.println("service class"+userId + " " + helpDeskId +" "+ createReplyRequestDTO);
-
-
         Reply reply = new Reply();
         reply.setReplyText(createReplyRequestDTO.getReplyText());
         reply.setHelpDesk(helpDesk);
@@ -62,21 +59,6 @@ public class ReplyServiceImpl implements ReplyService {
 
         return replyResponseDTO;
 
-    }
-
-    @Override
-    public List<ReplyResponseDTO> getRepliesByHelpDesk(Long helpDeskId) {
-        List<Reply> replies = replyRepository.findByHelpDeskId(helpDeskId);
-
-        return replies.stream().map(reply -> {
-            ReplyResponseDTO replyResponseDTO = new ReplyResponseDTO();
-            replyResponseDTO.setId(reply.getId());
-            replyResponseDTO.setReplyText(reply.getReplyText());
-            replyResponseDTO.setUsername(reply.getUser().getUsername());
-            replyResponseDTO.setHelpDeskId(reply.getHelpDesk().getId());
-            replyResponseDTO.setUserId(reply.getUser().getId());
-            return replyResponseDTO;
-        }).collect(Collectors.toList());
     }
 
     @Override
