@@ -11,8 +11,6 @@ public interface HelpDeskService {
 
     HelpDeskResponseDTO findHelpDeskById(Long id);
 
-    List<HelpDeskResponseDTO> findHelpDesksByUserId(Long userId);
-
     List<HelpDeskResponseDTO> findAllHelpDesk();
 
     void deleteHelpDeskById(Long id);

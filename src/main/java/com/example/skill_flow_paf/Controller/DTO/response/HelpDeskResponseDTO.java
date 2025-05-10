@@ -7,5 +7,4 @@ public class HelpDeskResponseDTO {
     private Long id;
     private String question;
     private Long userId;
-    private String userName;
 }
