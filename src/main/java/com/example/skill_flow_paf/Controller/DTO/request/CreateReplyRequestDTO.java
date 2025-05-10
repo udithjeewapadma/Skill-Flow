@@ -10,7 +10,7 @@ import lombok.Data;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CreateReplyRequestDTO {
 
-    @NotBlank(message = "Reply text must not be empty")
-    @Size(min = 2, max = 1000, message = "Reply must be between 2 and 1000 characters")
+    //@NotBlank(message = "Reply text must not be empty")
+    @Size(min = 2, max = 10000, message = "Reply must be between 2 and 1000 characters")
     private String replyText;
 }

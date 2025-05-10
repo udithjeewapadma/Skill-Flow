@@ -31,4 +31,5 @@ public class Comment {
     private List<CommentReply> commentReply;
     //come to many comments
     //one comment has many reply
+
 }

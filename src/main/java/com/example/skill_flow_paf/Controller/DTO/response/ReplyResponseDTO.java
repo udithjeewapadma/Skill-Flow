@@ -8,4 +8,5 @@ public class ReplyResponseDTO {
     private String replyText;
     private Long helpDeskId;
     private Long userId;
+    private String username;
 }
