@@ -20,7 +20,6 @@ public class User {
     private String email;
     private String phoneNumber;
     private String qualifications;
-    private String role;
 
 
     @OneToMany(mappedBy = "user")
