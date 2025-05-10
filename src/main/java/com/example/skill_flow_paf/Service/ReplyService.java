@@ -11,6 +11,8 @@ public interface ReplyService {
 
     ReplyResponseDTO findReplyById(Long id);
 
+    List<ReplyResponseDTO> getRepliesByHelpDesk(Long helpDeskId);
+
     List<ReplyResponseDTO> findAllReplies();
 
     void deleteReplyById(Long id);
