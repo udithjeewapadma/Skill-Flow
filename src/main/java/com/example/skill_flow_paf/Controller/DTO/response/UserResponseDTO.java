@@ -12,4 +12,5 @@ public class UserResponseDTO {
     private String phoneNumber;
     private String qualifications;
     private String about;
+    private String role;
 }
