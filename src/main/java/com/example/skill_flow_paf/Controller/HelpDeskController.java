@@ -27,6 +27,7 @@ public class HelpDeskController {
         helpDeskResponseDTO.setId(helpDesk.getId());
         helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
         helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
+        helpDeskResponseDTO.setUsername(helpDesk.getUser().getUsername());
 
         return helpDeskResponseDTO;
     }

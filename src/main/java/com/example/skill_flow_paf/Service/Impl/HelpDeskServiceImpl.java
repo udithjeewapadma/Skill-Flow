@@ -44,7 +44,7 @@ public class HelpDeskServiceImpl implements HelpDeskService {
         helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
         helpDeskResponseDTO.setId(helpDesk.getId());
         helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
-
+        helpDeskResponseDTO.setUsername(helpDesk.getUser().getUsername());
         return helpDeskResponseDTO;
     }
 
@@ -58,6 +58,7 @@ public class HelpDeskServiceImpl implements HelpDeskService {
             helpDeskResponseDTO.setId(helpDesk.getId());
             helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
             helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
+            helpDeskResponseDTO.setUsername(helpDesk.getUser().getUsername());
 
             return helpDeskResponseDTO;
         }).collect(Collectors.toList());
