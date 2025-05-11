@@ -18,12 +18,14 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    //post method
     @PostMapping
     private CategoryResponseDTO createCategory(@RequestBody @Valid CreateCategoryRequestDTO createCategoryRequestDTO) {
         Category category = categoryService.createCategory(createCategoryRequestDTO);
         CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
         categoryResponseDTO.setId(category.getId());
         categoryResponseDTO.setCategoryName(category.getCategoryName());
+
         return categoryResponseDTO;
     }
 
@@ -36,6 +38,7 @@ public class CategoryController {
         return categoryResponseDTO;
     }
 
+    //get all methods
     @GetMapping
     public List<CategoryResponseDTO> getAllCategories() {
         return categoryService.findAllCategories();
