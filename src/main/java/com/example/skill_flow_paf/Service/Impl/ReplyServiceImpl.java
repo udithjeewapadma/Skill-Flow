@@ -61,6 +61,8 @@ public class ReplyServiceImpl implements ReplyService {
 
     }
 
+
+
     @Override
     public List<ReplyResponseDTO> findAllReplies() {
         List<Reply> replies = replyRepository.findAll();
@@ -75,6 +77,25 @@ public class ReplyServiceImpl implements ReplyService {
 
             return replyResponseDTO;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReplyResponseDTO> getRepliesByHelpDesk(Long helpDeskId) {
+        List<Reply> replies = replyRepository.findByHelpDeskId(helpDeskId);
+
+        return replies.stream().map(reply -> {
+            ReplyResponseDTO replyResponseDTO = new ReplyResponseDTO();
+            replyResponseDTO.setId(reply.getId());
+            replyResponseDTO.setReplyText(reply.getReplyText());
+            replyResponseDTO.setUsername(reply.getUser().getUsername());
+            replyResponseDTO.setHelpDeskId(reply.getHelpDesk().getId());
+            replyResponseDTO.setUserId(reply.getUser().getId());
+            return replyResponseDTO;
+
+
+        }).collect(Collectors.toList());
+
+
     }
 
     @Override

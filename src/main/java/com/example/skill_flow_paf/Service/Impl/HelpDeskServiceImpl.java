@@ -44,8 +44,26 @@ public class HelpDeskServiceImpl implements HelpDeskService {
         helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
         helpDeskResponseDTO.setId(helpDesk.getId());
         helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
-        helpDeskResponseDTO.setUsername(helpDesk.getUser().getUsername());
+        helpDeskResponseDTO.setUserName(helpDesk.getUser().getUsername());
         return helpDeskResponseDTO;
+    }
+
+    @Override
+    public List<HelpDeskResponseDTO> findHelpDesksByUserId(Long userId) {
+        // Fetch help desks by user ID
+        List<HelpDesk> helpDesks = helpDeskRepository.findByUserId(userId);
+
+        // Map the HelpDesk entities to HelpDeskResponseDTOs
+        return helpDesks.stream()
+                .map(helpDesk -> {
+                    HelpDeskResponseDTO responseDTO = new HelpDeskResponseDTO();
+                    responseDTO.setId(helpDesk.getId());
+                    responseDTO.setQuestion(helpDesk.getQuestion());
+                    responseDTO.setUserId(helpDesk.getUser().getId());
+                    responseDTO.setUserName(helpDesk.getUser().getUsername());
+                    return responseDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -58,8 +76,7 @@ public class HelpDeskServiceImpl implements HelpDeskService {
             helpDeskResponseDTO.setId(helpDesk.getId());
             helpDeskResponseDTO.setQuestion(helpDesk.getQuestion());
             helpDeskResponseDTO.setUserId(helpDesk.getUser().getId());
-            helpDeskResponseDTO.setUsername(helpDesk.getUser().getUsername());
-
+            helpDeskResponseDTO.setUserName(helpDesk.getUser().getUsername());
             return helpDeskResponseDTO;
         }).collect(Collectors.toList());
     }

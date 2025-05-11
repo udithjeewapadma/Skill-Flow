@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/replies")
 public class ReplyController {
@@ -21,7 +22,13 @@ public class ReplyController {
     private ReplyService replyService;
 
     @PostMapping
-    public ReplyResponseDTO createReply(@RequestParam Long userId, @RequestParam Long helpDeskId, @RequestBody @Valid CreateReplyRequestDTO createReplyRequestDTO){
+    public ReplyResponseDTO createReply(@RequestBody CreateReplyRequestDTO createReplyRequestDTO,
+                                        @RequestParam Long userId,
+                                        @RequestParam Long helpDeskId) {
+        // Log the request to verify the parameters
+        System.out.println("userId: " + userId + ", helpDeskId: " + helpDeskId + ", replyText: " + createReplyRequestDTO.getReplyText());
+
+        // Call the service to create the reply
         Reply reply = replyService.createReply(userId, helpDeskId, createReplyRequestDTO);
 
         ReplyResponseDTO replyResponseDTO = new ReplyResponseDTO();
@@ -29,8 +36,14 @@ public class ReplyController {
         replyResponseDTO.setId(reply.getId());
         replyResponseDTO.setHelpDeskId(reply.getHelpDesk().getId());
         replyResponseDTO.setUserId(reply.getUser().getId());
+        replyResponseDTO.setUsername(reply.getUser().getUsername());
 
         return replyResponseDTO;
+    }
+
+    @GetMapping("/helpdesk/{helpDeskId}")
+    public List<ReplyResponseDTO> getRepliesByHelpDesk(@PathVariable Long helpDeskId) {
+        return replyService.getRepliesByHelpDesk(helpDeskId);
     }
 
     @GetMapping("/{reply-id}")

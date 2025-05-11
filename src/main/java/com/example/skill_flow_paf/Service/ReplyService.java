@@ -13,6 +13,8 @@ public interface ReplyService {
 
     List<ReplyResponseDTO> findAllReplies();
 
+    List<ReplyResponseDTO> getRepliesByHelpDesk(Long helpDeskId);
+
     void deleteReplyById(Long id);
 
     Reply updateReplyById(Long id, CreateReplyRequestDTO createReplyRequestDTO);
