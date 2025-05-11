@@ -36,7 +36,8 @@ public class CommentServiceImpl implements CommentService {
         User user = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundExecption("User Not Found"));
 
         Post post = postRepository.findById(postId).orElseThrow(()-> new PostNotFoundException("Post Not Found"));
-        
+
+        System.out.print(userId + " " +postId);
         Comment comment = new Comment();
         
         comment.setContent(createCommentRequestDTO.getContent());
